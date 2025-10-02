@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph.xml"
+    app:startDestination="@id/fragment_home">
+
+    <fragment
+        android:id="@+id/fragment_home"
+        android:name="com.example.knowyourplants.ui.home.HomeFragment"
+        android:label="@string/home"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_home_to_search"
+            app:destination="@id/fragment_search"/>
+        <action
+            android:id="@+id/action_home_to_account"
+            app:destination="@id/fragment_account"/>
+        <action
+            android:id="@+id/action_home_to_details"
+            app:destination="@id/fragment_details"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_search"
+        android:name="com.example.knowyourplants.ui.search.SearchFragment"
+        android:label="@string/search"
+        tools:layout="@layout/fragment_search">
+        <action
+            android:id="@+id/action_search_to_home"
+            app:destination="@id/fragment_home" />
+        <action
+            android:id="@+id/action_search_to_account"
+            app:destination="@+id/fragment_account"
+            app:popUpTo="@id/fragment_home"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_account"
+        android:name="com.example.knowyourplants.ui.account.AccountFragment"
+        android:label="@string/account"
+        tools:layout="@layout/fragment_account">
+        <action
+            android:id="@+id/action_account_to_home"
+            app:destination="@+id/fragment_home"/>
+        <action
+            android:id="@+id/action_account_to_search"
+            app:destination="@+id/fragment_search"
+            app:popUpTo="@id/fragment_home"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_details"
+        android:name="com.example.knowyourplants.ui.plant_details.PlantDetailsFragment"
+        android:label="@string/plant_details"
+        tools:layout="@layout/fragment_plant_details">
+        <argument
+            android:name="plantId"
+            app:argType="integer"
+            android:defaultValue="0"/>
+    </fragment>
+</navigation>
