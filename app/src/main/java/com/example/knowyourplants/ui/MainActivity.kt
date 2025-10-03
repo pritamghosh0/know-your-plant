@@ -1,6 +1,7 @@
 package com.example.knowyourplants.ui
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -21,6 +22,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewPager: ViewPager2
     private lateinit var navController: NavController
     private var viewPagerPageChangeCallback : ViewPager2.OnPageChangeCallback? = null
+    private lateinit var bottomNav: BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +34,7 @@ class MainActivity : AppCompatActivity() {
             insets
         }
         viewPager = findViewById(R.id.pager)
-        val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        bottomNav = findViewById(R.id.bottom_navigation)
         navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
         bottomNav.setupWithNavController(navController)
@@ -49,20 +51,18 @@ class MainActivity : AppCompatActivity() {
                 when (position) {
                     0 -> if (navController.currentDestination?.id != R.id.fragment_home) {
                         navController.navigate(R.id.fragment_home, null, navOptions {
-                            popUpTo(R.id.fragment_home) { inclusive = true }
+                            popUpTo(R.id.fragment_home) { inclusive = false }
                             launchSingleTop = true
                         })
                     }
                     1 -> if (navController.currentDestination?.id != R.id.fragment_search) {
                         navController.navigate(R.id.fragment_search, null, navOptions {
                             popUpTo(R.id.fragment_home) { inclusive = false }
-                            launchSingleTop = true
                         })
                     }
                     2 -> if (navController.currentDestination?.id != R.id.fragment_account) {
                         navController.navigate(R.id.fragment_account, null, navOptions {
                             popUpTo(R.id.fragment_home) { inclusive = false }
-                            launchSingleTop = true
                         })
                     }
                 }
@@ -84,6 +84,14 @@ class MainActivity : AppCompatActivity() {
                 R.id.fragment_account -> 2
                 else -> -1
             }
+            if(targetPage==-1) {
+                bottomNav.visibility = View.GONE
+                viewPager.isUserInputEnabled = false // disable viewpager
+            } else if(!viewPager.isUserInputEnabled){
+                bottomNav.visibility = View.VISIBLE
+                viewPager.isUserInputEnabled = true // enable viewpager
+            }
+
             if (targetPage!=-1 && viewPager.currentItem != targetPage) {
                 viewPager.setCurrentItem(targetPage, true)
             }
