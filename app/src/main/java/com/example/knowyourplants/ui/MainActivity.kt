@@ -45,6 +45,8 @@ class MainActivity : AppCompatActivity() {
      * Function to setup view pager and keep viewpager and bottom navigation in sync
      * */
     private fun setUpViewPagerWithBottomNav(){
+
+        // callback to sync navigation component/bottom nav with viewpager selected page
         viewPagerPageChangeCallback = object: ViewPager2.OnPageChangeCallback(){
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
@@ -76,7 +78,14 @@ class MainActivity : AppCompatActivity() {
             override fun createFragment(position: Int): Fragment = Fragment()
         }
 
-        // sync bottom nav current tab with ViewPager current selected tab
+        syncViewPagerBottomNav()
+    }
+
+    /**
+     *  Function to sync bottom nav current tab with ViewPager current selected tab
+     * */
+    private fun syncViewPagerBottomNav() {
+        // listening to destination change to sync viewpager  with back popUp navigation + enable full screen opening of other screens
         navController.addOnDestinationChangedListener { _, destination, _ ->
             val targetPage =  when (destination.id) {
                 R.id.fragment_home -> 0
@@ -91,9 +100,31 @@ class MainActivity : AppCompatActivity() {
                 bottomNav.visibility = View.VISIBLE
                 viewPager.isUserInputEnabled = true // enable viewpager
             }
-
             if (targetPage!=-1 && viewPager.currentItem != targetPage) {
-                viewPager.setCurrentItem(targetPage, true)
+                viewPager.currentItem = targetPage
+            }
+        }
+
+        bottomNav.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.fragment_home -> {
+                    if(viewPager.currentItem!=0)
+                        viewPager.currentItem = 0
+                    return@setOnItemSelectedListener true
+                }
+                R.id.fragment_search -> {
+                    if(viewPager.currentItem!=1)
+                        viewPager.currentItem = 1
+                    return@setOnItemSelectedListener true
+                }
+                R.id.fragment_account -> {
+                    if(viewPager.currentItem!=2)
+                        viewPager.currentItem = 2
+                    return@setOnItemSelectedListener true
+                }
+                else -> {
+                    return@setOnItemSelectedListener false
+                }
             }
         }
     }
