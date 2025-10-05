@@ -3,12 +3,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.account.AccountFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.account.AccountFragment"
+    android:paddingBottom="72dp">
+    <androidx.cardview.widget.CardView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:cardCornerRadius="25dp"
+        app:cardElevation="0dp"
+        android:layout_gravity="bottom"
+        app:cardBackgroundColor="@color/teal_200"
+        android:layout_margin="8dp"
+        android:id="@+id/circle"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="@string/account" />
+    <com.example.knowyourplants.ui.account.DotView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/dotView"
+        app:dotColor="@color/red"/>
 
+    <com.example.knowyourplants.ui.account.SquareView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/squareView"
+        app:squareColor="@color/teal_700"
+        app:sideLength="100dp"/>
 </FrameLayout>

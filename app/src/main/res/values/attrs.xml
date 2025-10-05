@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="DotView">
+        <attr name="dotColor" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="SquareView">
+        <attr name="squareColor" format="color" />
+        <attr name="sideLength" format="dimension" />
+    </declare-styleable>
+</resources>
