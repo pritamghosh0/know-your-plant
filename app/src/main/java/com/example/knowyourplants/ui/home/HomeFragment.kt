@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.example.knowyourplants.R
+import com.example.knowyourplants.data.remote.ApiResponse
 import com.example.knowyourplants.data.remote.models.PlantListResponse
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -42,13 +43,25 @@ class HomeFragment : Fragment() {
         }
         viewModel.getPlants()
         lifecycleScope.launch {
-            viewModel.plants.collect { response ->
-                if(response!=null)
-                    showList(response)
+            viewModel.plants.collect { plantsResponse ->
+                when(plantsResponse){
+                    is ApiResponse.Success -> showList(plantsResponse.data)
+                    is ApiResponse.Error -> showAlert(plantsResponse.message)
+                    ApiResponse.Loading -> showLoader()
+                }
             }
         }
     }
 
+    private fun showAlert(error: String){
+        //TODO
+        Log.d(TAG, "Error: $error")
+    }
+
+    private fun showLoader(){
+        //TODO
+        Log.d(TAG, "Loading...")
+    }
     private fun showList(plantList: PlantListResponse){
         //TODO
         Log.d(TAG, plantList.data.toString())
