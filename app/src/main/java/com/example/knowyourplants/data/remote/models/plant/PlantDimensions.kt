@@ -1,4 +1,4 @@
-package com.example.knowyourplants.data.remote.models
+package com.example.knowyourplants.data.remote.models.plant
 
 import com.google.gson.annotations.SerializedName
 

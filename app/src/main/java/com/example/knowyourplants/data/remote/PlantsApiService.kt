@@ -1,8 +1,8 @@
 package com.example.knowyourplants.data.remote
 
 import com.example.knowyourplants.Constants
-import com.example.knowyourplants.data.remote.models.PlantDetails
-import com.example.knowyourplants.data.remote.models.PlantListResponse
+import com.example.knowyourplants.data.remote.models.plant.PlantDetails
+import com.example.knowyourplants.data.remote.models.plant.PlantListResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path

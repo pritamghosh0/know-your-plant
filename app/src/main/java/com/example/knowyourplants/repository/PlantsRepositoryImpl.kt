@@ -2,8 +2,8 @@ package com.example.knowyourplants.repository
 
 import com.example.knowyourplants.data.remote.ApiResponse
 import com.example.knowyourplants.data.remote.PlantsApiService
-import com.example.knowyourplants.data.remote.models.PlantDetails
-import com.example.knowyourplants.data.remote.models.PlantListResponse
+import com.example.knowyourplants.data.remote.models.plant.PlantDetails
+import com.example.knowyourplants.data.remote.models.plant.PlantListResponse
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject

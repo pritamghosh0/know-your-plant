@@ -2,6 +2,7 @@ package com.example.knowyourplants.di
 
 import com.example.knowyourplants.Constants
 import com.example.knowyourplants.data.remote.PlantsApiService
+import com.example.knowyourplants.data.remote.UsersApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,6 +17,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object PlantsApiServiceModule {
     private val plantsBaseUrl = "https://perenual.com"
+    private val usersApiBaseUrl = "https://jsonplaceholder.typicode.com"
 
     @Singleton
     @Provides
@@ -45,12 +47,18 @@ object PlantsApiServiceModule {
     @RetrofitOthersApi
     @Provides
     fun provideRetrofitOtherApi(retrofitBuilder: Retrofit.Builder): Retrofit{
-        return retrofitBuilder.baseUrl("other_apis").build()
+        return retrofitBuilder.baseUrl(usersApiBaseUrl).build()
     }
 
     @Singleton
     @Provides
     fun providePlantsApiService(@RetrofitPlantsApi retrofit: Retrofit): PlantsApiService{
         return retrofit.create(PlantsApiService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideUsersApiService(@RetrofitPlantsApi retrofit: Retrofit): UsersApiService{
+        return retrofit.create(UsersApiService::class.java)
     }
 }
