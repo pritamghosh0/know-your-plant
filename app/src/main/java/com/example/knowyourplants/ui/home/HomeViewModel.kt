@@ -33,13 +33,15 @@ class HomeViewModel @Inject constructor(
                         val firstNewId = newResponse.data.first().id
                         if (firstNewId == lastId?.plus(1)) {
                             val updatedList = currentList + newResponse.data
+                            persistedList.addAll(newResponse.data)
                             _plants.value = ApiResponse.Success(updatedList)
                         } else {
                             // IDs not sequential, maybe refresh list
-                            _plants.value = ApiResponse.Success(newResponse.data)
+                            _plants.value = ApiResponse.Success(persistedList)
                         }
                     } else {
                         // initial load
+                        persistedList.addAll(newResponse.data)
                         _plants.value = ApiResponse.Success(newResponse.data)
                     }
                 }
